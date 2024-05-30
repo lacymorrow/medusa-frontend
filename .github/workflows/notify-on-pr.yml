@@ -1,0 +1,32 @@
+name: Notify Slack on PR Creation
+
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Slack Notification
+        uses: slackapi/slack-github-action@v1.24.0
+        with:
+          payload: |
+            {
+              "text": "A new pull request has been created: *${{ github.event.pull_request.title }}*",
+              "attachments": [
+                {
+                  "fallback": "View the pull request on GitHub",
+                  "actions": [
+                    {
+                      "type": "button",
+                      "text": "View PR",
+                      "url": "${{ github.event.pull_request.html_url }}",
+                      "style": "primary"
+                    }
+                  ]
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
