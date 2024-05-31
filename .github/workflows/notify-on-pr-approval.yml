@@ -1,0 +1,51 @@
+name: Notify Slack on PR Approval
+
+on:
+  pull_request_review:
+    types: [submitted]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if the review is an approval
+        id: check_approval
+        run: |
+          if [ "${{ github.event.review.state }}" == "approved" ]; then
+            echo "approved=true" >> $GITHUB_ENV
+          else
+            echo "approved=false" >> $GITHUB_ENV
+          fi
+
+      - name: Get Slack Message Timestamp
+        id: get_timestamp
+        run: |
+          echo "SLACK_MESSAGE_TS=$(gh secret list -p | grep SLACK_MESSAGE_TS | awk '{print $2}')" >> $GITHUB_ENV
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update Slack Message on Approval
+        if: env.approved == 'true'
+        uses: slackapi/slack-github-action@v1.24.0
+        with:
+          payload: |
+            {
+              "channel": "#your-channel",
+              "ts": "${{ env.SLACK_MESSAGE_TS }}",
+              "text": ":tada: PR #${{ github.event.pull_request.number }} - *${{ github.event.pull_request.title }}* has been approved! :tada:",
+              "attachments": [
+                {
+                  "fallback": "View the pull request on GitHub",
+                  "actions": [
+                    {
+                      "type": "button",
+                      "text": "View PR",
+                      "url": "${{ github.event.pull_request.html_url }}",
+                      "style": "primary"
+                    }
+                  ]
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
