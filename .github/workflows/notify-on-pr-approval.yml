@@ -1,56 +1,106 @@
-name: Notify Slack on PR Approval
+name: Notify Slack on PR Open or Reopen
 
 on:
-  pull_request_review:
-    types: [submitted]
+  pull_request:
+    types: [opened, reopened]
 
 jobs:
   notify:
     runs-on: ubuntu-latest
     steps:
-      - name: Check if the review is an approval
-        id: check_approval
+      - name: Check Event Type
+        id: check_event
         run: |
-          if [ "${{ github.event.review.state }}" == "approved" ]; then
-            echo "approved=true" >> $GITHUB_ENV
-          else
-            echo "approved=false" >> $GITHUB_ENV
+          if [ "${{ github.event.action }}" == "opened" ]; then
+            echo "event_type=open" >> $GITHUB_ENV
+          elif [ "${{ github.event.action }}" == "reopened" ]; then
+            echo "event_type=reopen" >> $GITHUB_ENV
           fi
 
-      - name: Download Slack Message TS
+      - name: Download Slack Message TS (if reopen)
+        if: env.event_type == 'reopen'
         uses: actions/download-artifact@v2
         with:
           name: slack-message-ts
           path: .
 
-      - name: Read Slack Message TS
+      - name: Read Slack Message TS (if reopen)
+        if: env.event_type == 'reopen'
         id: read_ts
         run: |
-          SLACK_MESSAGE_TS=$(cat slack_message_ts.txt)
-          echo "SLACK_MESSAGE_TS=$SLACK_MESSAGE_TS" >> $GITHUB_ENV
+          if [ -f slack_message_ts.txt ]; then
+            SLACK_MESSAGE_TS=$(cat slack_message_ts.txt)
+            echo "SLACK_MESSAGE_TS=$SLACK_MESSAGE_TS" >> $GITHUB_ENV
+          else
+            echo "SLACK_MESSAGE_TS file not found."
+            exit 1
+          fi
 
-      - name: Update Slack Message on Approval
-        if: env.approved == 'true'
-        uses: slackapi/slack-github-action@v1.24.0
+      - name: Send Slack Notification (for open)
+        if: env.event_type == 'open'
+        id: send_notification
+        run: |
+          response=$(curl -X POST -H "Authorization: Bearer ${{ secrets.SLACK_API_TOKEN }}" -H "Content-type: application/json" \
+          --data '{
+            "channel": "#your-channel",
+            "text": "A new pull request has been created: *${{ github.event.pull_request.title }}*",
+            "attachments": [
+              {
+                "fallback": "View the pull request on GitHub",
+                "actions": [
+                  {
+                    "type": "button",
+                    "text": "View PR",
+                    "url": "${{ github.event.pull_request.html_url }}",
+                    "style": "primary"
+                  }
+                ]
+              }
+            ]
+          }' https://slack.com/api/chat.postMessage)
+          echo "response=$response" >> $GITHUB_ENV
+          echo "SLACK_MESSAGE_TS=$(echo $response | jq -r '.ts')" >> $GITHUB_ENV
+
+      - name: Extract TS from Response (if open)
+        if: env.event_type == 'open'
+        run: echo "${{ env.SLACK_MESSAGE_TS }}" > slack_message_ts.txt
+
+      - name: Check if TS file exists and is not empty (if open)
+        if: env.event_type == 'open'
+        run: |
+          if [ ! -s slack_message_ts.txt ]; then
+            echo "slack_message_ts.txt is empty or does not exist."
+            exit 1
+          fi
+
+      - name: Archive Slack Message TS (if open)
+        if: env.event_type == 'open'
+        uses: actions/upload-artifact@v2
         with:
-          payload: |
-            {
-              "channel": "#your-channel",
-              "ts": "${{ env.SLACK_MESSAGE_TS }}",
-              "text": ":tada: PR #${{ github.event.pull_request.number }} - *${{ github.event.pull_request.title }}* has been approved! :tada:",
-              "attachments": [
-                {
-                  "fallback": "View the pull request on GitHub",
-                  "actions": [
-                    {
-                      "type": "button",
-                      "text": "View PR",
-                      "url": "${{ github.event.pull_request.html_url }}",
-                      "style": "primary"
-                    }
-                  ]
-                }
-              ]
-            }
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          name: slack-message-ts
+          path: slack_message_ts.txt
+
+      - name: Update Slack Notification (for reopen)
+        if: env.event_type == 'reopen'
+        id: update_notification
+        run: |
+          response=$(curl -X POST -H "Authorization: Bearer ${{ secrets.SLACK_API_TOKEN }}" -H "Content-type: application/json" \
+          --data '{
+            "channel": "#your-channel",
+            "ts": "${{ env.SLACK_MESSAGE_TS }}",
+            "text": ":recycle: PR #${{ github.event.pull_request.number }} - *${{ github.event.pull_request.title }}* has been reopened! :recycle:",
+            "attachments": [
+              {
+                "fallback": "View the pull request on GitHub",
+                "actions": [
+                  {
+                    "type": "button",
+                    "text": "View PR",
+                    "url": "${{ github.event.pull_request.html_url }}",
+                    "style": "primary"
+                  }
+                ]
+              }
+            ]
+          }' https://slack.com/api/chat.update)
+          echo "response=$response" >> $GITHUB_ENV
