@@ -17,12 +17,17 @@ jobs:
             echo "approved=false" >> $GITHUB_ENV
           fi
 
-      - name: Get Slack Message Timestamp
-        id: get_timestamp
+      - name: Download Slack Message TS
+        uses: actions/download-artifact@v2
+        with:
+          name: slack-message-ts
+          path: .
+
+      - name: Read Slack Message TS
+        id: read_ts
         run: |
-          echo "SLACK_MESSAGE_TS=$(gh secret list -p | grep SLACK_MESSAGE_TS | awk '{print $2}')" >> $GITHUB_ENV
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SLACK_MESSAGE_TS=$(cat slack_message_ts.txt)
+          echo "SLACK_MESSAGE_TS=$SLACK_MESSAGE_TS" >> $GITHUB_ENV
 
       - name: Update Slack Message on Approval
         if: env.approved == 'true'

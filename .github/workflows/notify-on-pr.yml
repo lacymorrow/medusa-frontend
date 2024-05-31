@@ -32,10 +32,13 @@ jobs:
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
       - name: Extract TS from Response
         run: |
-          echo "SLACK_MESSAGE_TS=$(echo '${{ steps.send_notification.outputs.response }}' | jq -r '.ts')" >> $GITHUB_ENV
-      - name: Store Message Timestamp
-        run: echo "SLACK_MESSAGE_TS=${{ env.SLACK_MESSAGE_TS }}" | gh secret set SLACK_MESSAGE_TS
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          echo "${{ steps.send_notification.outputs.response }}" | jq -r '.ts' > slack_message_ts.txt
+
+      - name: Archive Slack Message TS
+        uses: actions/upload-artifact@v2
+        with:
+          name: slack-message-ts
+          path: slack_message_ts.txt
