@@ -2,7 +2,7 @@ name: Notify Slack on PR Creation
 
 on:
   pull_request:
-    types: [opened]
+    types: [opened, reopened]
 
 jobs:
   notify:
