@@ -295,22 +295,6 @@ export async function updateCustomer(data: StorePostCustomersCustomerReq) {
 		.catch((err) => medusaError(err))
 }
 
-// Vendor actions
-export async function getVendors() {
-	// const headers = getMedusaHeaders(["vendor"])
-
-	const result = fetch(`http://localhost:9000/store/vendors`, {
-		// credentials: "include",
-		// headers
-	})
-		.then((response) => {
-			return response
-		})
-		.then((response) => response.json())
-
-	return result
-}
-
 export async function addShippingAddress(
 	data: StorePostCustomersCustomerAddressesReq
 ) {

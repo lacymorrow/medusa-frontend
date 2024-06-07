@@ -1,5 +1,5 @@
 import "@/styles/globals.css"
-import "@/styles/shadcn.css"
+// import "@/styles/shadcn.css"
 import { Metadata } from "next"
 import { Inter as FontSans } from "next/font/google"
 
