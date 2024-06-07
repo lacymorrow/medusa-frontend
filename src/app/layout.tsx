@@ -1,5 +1,14 @@
+import "@/styles/globals.css"
+import "@/styles/shadcn.css"
 import { Metadata } from "next"
-import "styles/globals.css"
+import { Inter as FontSans } from "next/font/google"
+
+import { cn } from "@/lib/utils"
+
+const fontSans = FontSans({
+  subsets: ["latin"],
+  variable: "--font-sans",
+})
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://localhost:8000"
 
@@ -10,7 +19,12 @@ export const metadata: Metadata = {
 export default function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang="en" data-mode="light">
-      <body>
+      <body
+        className={cn(
+          "min-h-screen bg-background font-sans antialiased",
+          fontSans.variable
+        )}
+      >
         <main className="relative">{props.children}</main>
       </body>
     </html>
