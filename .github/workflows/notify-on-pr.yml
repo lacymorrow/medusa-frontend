@@ -35,9 +35,10 @@ jobs:
 
       - name: Extract TS from Response
         run: |
+          echo "hi"
           SLACK_MESSAGE_TS="${{ steps.send_notification.outputs.response }}"
           echo "$SLACK_MESSAGE_TS"
-          echo "$SLACK_MESSAGE_TS" | jq -r '.ts' > slack_message_ts.txt
+          echo "${{ steps.send_notification.outputs.response }}" | jq -r '.ts' > slack_message_ts.txt
 
       - name: Archive Slack Message TS
         uses: actions/upload-artifact@v2
