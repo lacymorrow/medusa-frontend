@@ -1,16 +1,16 @@
 "use client"
 
+import { ArrowRightOnRectangle } from "@medusajs/icons"
 import { Customer } from "@medusajs/medusa"
 import { clx } from "@medusajs/ui"
-import { ArrowRightOnRectangle } from "@medusajs/icons"
 import { useParams, usePathname } from "next/navigation"
 
-import ChevronDown from "@modules/common/icons/chevron-down"
 import { signOut } from "@modules/account/actions"
-import User from "@modules/common/icons/user"
+import LocalizedClientLink from "@modules/common/components/localized-client-link"
+import ChevronDown from "@modules/common/icons/chevron-down"
 import MapPin from "@modules/common/icons/map-pin"
 import Package from "@modules/common/icons/package"
-import LocalizedClientLink from "@modules/common/components/localized-client-link"
+import User from "@modules/common/icons/user"
 
 const AccountNav = ({
   customer,
@@ -150,6 +150,15 @@ const AccountNav = ({
                   Orders
                 </AccountNavLink>
               </li>
+              <li>
+                <AccountNavLink
+                  href="/account/sell"
+                  route={route!}
+                  data-testid="sell-link"
+                >
+                  Sell
+                </AccountNavLink>
+              </li>
               <li className="text-grey-700">
                 <button
                   type="button"
@@ -171,10 +180,15 @@ type AccountNavLinkProps = {
   href: string
   route: string
   children: React.ReactNode
-  'data-testid'?: string
+  "data-testid"?: string
 }
 
-const AccountNavLink = ({ href, route, children, 'data-testid': dataTestId }: AccountNavLinkProps) => {
+const AccountNavLink = ({
+  href,
+  route,
+  children,
+  "data-testid": dataTestId,
+}: AccountNavLinkProps) => {
   const { countryCode }: { countryCode: string } = useParams()
 
   const active = route.split(countryCode)[1] === href

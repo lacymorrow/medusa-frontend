@@ -297,19 +297,34 @@ export async function updateCustomer(data: StorePostCustomersCustomerReq) {
 
 // Vendor actions
 export async function getVendors() {
-	// const headers = getMedusaHeaders(["vendor"])
+	const headers = getMedusaHeaders(["customer", "vendor"])
 
-	const result = fetch(`http://localhost:9000/store/vendors`, {
-		// credentials: "include",
-		// headers
+	console.log(headers)
+
+	const result = await fetch(`http://localhost:9000/store/vendors`, {
+		credentials: "include",
+		headers,
+		cache: 'no-store'
 	})
 		.then((response) => {
 			return response
 		})
 		.then((response) => response.json())
 
+	console.log("result", result)
+
 	return result
 }
+
+// export async function createVendor(data: any) {
+// 	const headers = getMedusaHeaders(["vendor"])
+
+// 	const result = fetch(`http://localhost:9000/store/vendors`, {
+// 		method: "POST",
+// 		headers,
+// 		body: JSON.stringify(data),
+// 	})
+// }
 
 export async function addShippingAddress(
 	data: StorePostCustomersCustomerAddressesReq

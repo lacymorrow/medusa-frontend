@@ -7,8 +7,6 @@ import {
   getRegion,
   getVendors,
 } from "@lib/data"
-import ContentGrid from "@modules/home/components/content-grid/content-grid"
-import FeatureList from "@modules/home/components/feature-list/feature-list"
 import FeaturedProducts from "@modules/home/components/featured-products"
 import Hero from "@modules/home/components/hero"
 import { cache } from "react"
@@ -79,10 +77,6 @@ export default async function Home({
       {vendors?.length && vendors.length > 0 && <div>{vendors.length}</div>}
 
       <Hero />
-
-      <ContentGrid />
-
-      <FeatureList />
 
       <div className="py-12">
         <ul className="flex flex-col gap-x-6">
