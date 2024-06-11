@@ -159,6 +159,15 @@ const AccountNav = ({
                   Sell
                 </AccountNavLink>
               </li>
+              <li>
+                <AccountNavLink
+                  href="/account/vendor-info"
+                  route={route!}
+                  data-testid="vendor-info-link"
+                >
+                  Vendor
+                </AccountNavLink>
+              </li>
               <li className="text-grey-700">
                 <button
                   type="button"

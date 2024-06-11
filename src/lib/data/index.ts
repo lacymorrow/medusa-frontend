@@ -51,6 +51,87 @@ const getMedusaHeaders = (tags: string[] = []) => {
 	return headers
 }
 
+
+// Vendor actions
+export async function getVendors() {
+	const headers = getMedusaHeaders(["customer", "vendor"])
+
+	console.log(headers)
+
+	const result = await fetch(`http://localhost:9000/store/vendors`, {
+		credentials: "include",
+		headers,
+	})
+		.then((response) => {
+			return response
+		})
+		.then((response) => response.json())
+		.catch((err) => medusaError(err))
+
+	console.log("getVendors", result)
+
+	return result
+}
+
+export async function getCustomerVendor() {
+	const headers = getMedusaHeaders(["customer", "vendor"])
+
+	const result = await fetch(`http://localhost:9000/store/vendors/me`, {
+		credentials: "include",
+		headers,
+	})
+		.then((response) => response.json())
+
+	return result
+}
+
+export async function registerAsVendor() {
+	const headers = getMedusaHeaders(["customer", "vendor"])
+
+	const result = await fetch(`http://localhost:9000/store/vendors/me`, {
+		credentials: "include",
+		method: "POST",
+		headers,
+	})
+		.then((response) => {
+			return response
+		})
+		.then((response) => response.json())
+		.catch((err) => medusaError(err))
+
+	console.log("registerAsVendor", result)
+
+	return result
+}
+
+export async function unregisterAsVendor() {
+	const headers = getMedusaHeaders(["customer", "vendor"])
+
+	return await fetch(`http://localhost:9000/store/vendors/me`, {
+		credentials: "include",
+		method: "DELETE",
+		headers,
+	})
+		.then((response) => response.json())
+		.catch((err) => medusaError(err))
+
+}
+
+export async function updateVendor(data: { name: string, description: string }) {
+	const headers = getMedusaHeaders(["customer", "vendor"])
+
+	const result = await fetch(`http://localhost:9000/store/vendors/me`, {
+		credentials: "include",
+		method: "PUT",
+		headers,
+		body: JSON.stringify(data),
+	})
+		.then((response) => response.json())
+		.catch((err) => medusaError(err))
+
+	return result
+}
+
 // Cart actions
 export async function createCart(data = {}) {
 	const headers = getMedusaHeaders(["cart"])
@@ -294,37 +375,6 @@ export async function updateCustomer(data: StorePostCustomersCustomerReq) {
 		.then(({ customer }) => customer)
 		.catch((err) => medusaError(err))
 }
-
-// Vendor actions
-export async function getVendors() {
-	const headers = getMedusaHeaders(["customer", "vendor"])
-
-	console.log(headers)
-
-	const result = await fetch(`http://localhost:9000/store/vendors`, {
-		credentials: "include",
-		headers,
-		cache: 'no-store'
-	})
-		.then((response) => {
-			return response
-		})
-		.then((response) => response.json())
-
-	console.log("result", result)
-
-	return result
-}
-
-// export async function createVendor(data: any) {
-// 	const headers = getMedusaHeaders(["vendor"])
-
-// 	const result = fetch(`http://localhost:9000/store/vendors`, {
-// 		method: "POST",
-// 		headers,
-// 		body: JSON.stringify(data),
-// 	})
-// }
 
 export async function addShippingAddress(
 	data: StorePostCustomersCustomerAddressesReq
