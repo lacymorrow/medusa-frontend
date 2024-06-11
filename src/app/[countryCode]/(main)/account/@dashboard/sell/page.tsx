@@ -32,6 +32,7 @@ export default async function Profile({
         <p className="text-base-regular">Sell your products on our platform.</p>
       </div>
       <div className="flex flex-col gap-y-8 w-full">
+        <Divider />
         {JSON.stringify(products)}
       </div>
     </div>
