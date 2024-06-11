@@ -61,6 +61,7 @@ export async function getVendors() {
 	const result = await fetch(`http://localhost:9000/store/vendors`, {
 		credentials: "include",
 		headers,
+		next: { tags: ["vendor"] }
 	})
 		.then((response) => {
 			return response
@@ -79,6 +80,7 @@ export async function getCustomerVendor() {
 	const result = await fetch(`http://localhost:9000/store/vendors/me`, {
 		credentials: "include",
 		headers,
+		next: { tags: ["vendor"] }
 	})
 		.then((response) => response.json())
 
@@ -92,6 +94,7 @@ export async function registerAsVendor() {
 		credentials: "include",
 		method: "POST",
 		headers,
+		next: { tags: ["vendor"] }
 	})
 		.then((response) => {
 			return response
@@ -111,19 +114,22 @@ export async function unregisterAsVendor() {
 		credentials: "include",
 		method: "DELETE",
 		headers,
+		next: { tags: ["vendor"] }
 	})
 		.then((response) => response.json())
 		.catch((err) => medusaError(err))
 
 }
 
-export async function updateVendor(data: { name: string, description: string }) {
+// Todo: type
+export async function updateVendor(data: { name?: string, description?: string }) {
 	const headers = getMedusaHeaders(["customer", "vendor"])
 
 	const result = await fetch(`http://localhost:9000/store/vendors/me`, {
 		credentials: "include",
 		method: "PUT",
 		headers,
+		next: { tags: ["vendor"] },
 		body: JSON.stringify(data),
 	})
 		.then((response) => response.json())

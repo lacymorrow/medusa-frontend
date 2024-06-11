@@ -4,6 +4,7 @@ import {
   getProductsList,
   getRegion,
 } from "@lib/data"
+import VendorDescription from "@modules/vendor/components/vendor-description"
 import VendorName from "@modules/vendor/components/vendor-name"
 import { notFound } from "next/navigation"
 
@@ -29,6 +30,8 @@ export default async function Sell({ countryCode }: { countryCode: string }) {
       <div className="flex flex-col gap-y-8 w-full">
         <div>Current Vendor: {JSON.stringify(vendor)}</div>
         <VendorName vendor={vendor} />
+        <Divider />
+        <VendorDescription vendor={vendor} />
         <Divider />
         {JSON.stringify(products)}
       </div>

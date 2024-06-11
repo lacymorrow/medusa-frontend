@@ -1,8 +1,10 @@
+// Todo: rewrite
 "use server"
 
 import {
 	registerAsVendor,
-	unregisterAsVendor
+	unregisterAsVendor,
+	updateVendor
 } from "@lib/data"
 import { revalidateTag } from "next/cache"
 
@@ -45,16 +47,31 @@ export async function updateVendorName(
 	formData: FormData
 ) {
 	const vendor = {
-		name: formData.get("name"),
-		description: formData.get("description"),
+		name: formData.get("name") as string, // TODO: type
 	}
 
 	try {
-		await updateCustomer(customer).then(() => {
-			revalidateTag("customer")
+		await updateVendor(vendor).then(() => {
+			revalidateTag("vendor")
 		})
 		return { success: true, error: null }
 	} catch (error: any) {
 		return { success: false, error: error.toString() }
 	}
 }
+
+export async function updateVendorDescription(_currentState: unknown, formData: FormData) {
+	const vendor = {
+		description: formData.get("description") as string, // TODO: type
+	}
+
+	try {
+		await updateVendor(vendor).then(() => {
+			revalidateTag("vendor")
+		})
+		return { success: true, error: null }
+	} catch (error: any) {
+		return { success: false, error: error.toString() }
+	}
+}
+

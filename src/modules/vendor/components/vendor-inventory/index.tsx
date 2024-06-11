@@ -30,4 +30,4 @@ const VendorInventory: React.FC = ({
   )
 }
 
-export default VendorUnregister
+export default VendorInventory
