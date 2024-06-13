@@ -13,10 +13,10 @@ import {
 import { PricedProduct } from "@medusajs/medusa/dist/types/pricing"
 import { cache } from "react"
 
+import { ProductCategoryWithChildren, ProductPreviewType } from "@/types/global"
 import sortProducts from "@lib/util/sort-products"
 import transformProductPreview from "@lib/util/transform-product-preview"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
-import { ProductCategoryWithChildren, ProductPreviewType } from "types/global"
 
 import { medusaClient } from "@lib/config"
 import medusaError from "@lib/util/medusa-error"
@@ -33,7 +33,7 @@ const emptyResponse = {
  * @param tags
  * @returns custom headers for Medusa API requests
  */
-const getMedusaHeaders = (tags: string[] = []) => {
+export const getMedusaHeaders = (tags: string[] = []) => {
 	const headers = {
 		next: {
 			tags,

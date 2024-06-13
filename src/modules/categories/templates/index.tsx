@@ -1,13 +1,13 @@
 import { notFound } from "next/navigation"
 import { Suspense } from "react"
 
-import { ProductCategoryWithChildren } from "types/global"
+import { ProductCategoryWithChildren } from "@/types/global"
 import InteractiveLink from "@modules/common/components/interactive-link"
+import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import SkeletonProductGrid from "@modules/skeletons/templates/skeleton-product-grid"
 import RefinementList from "@modules/store/components/refinement-list"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
 import PaginatedProducts from "@modules/store/templates/paginated-products"
-import LocalizedClientLink from "@modules/common/components/localized-client-link"
 
 export default function CategoryTemplate({
   categories,
@@ -28,8 +28,14 @@ export default function CategoryTemplate({
   if (!category || !countryCode) notFound()
 
   return (
-    <div className="flex flex-col small:flex-row small:items-start py-6 content-container" data-testid="category-container">
-      <RefinementList sortBy={sortBy || "created_at"} data-testid="sort-by-container" />
+    <div
+      className="flex flex-col small:flex-row small:items-start py-6 content-container"
+      data-testid="category-container"
+    >
+      <RefinementList
+        sortBy={sortBy || "created_at"}
+        data-testid="sort-by-container"
+      />
       <div className="w-full">
         <div className="flex flex-row mb-8 text-2xl-semi gap-4">
           {parents &&

@@ -6,7 +6,8 @@ import { Fragment, useEffect, useMemo, useState } from "react"
 import ReactCountryFlag from "react-country-flag"
 
 import { StateType } from "@lib/hooks/use-toggle-state"
-import { updateRegion } from "app/actions"
+
+import { updateRegion } from "@/app/actions"
 import { useParams, usePathname } from "next/navigation"
 
 type CountryOption = {

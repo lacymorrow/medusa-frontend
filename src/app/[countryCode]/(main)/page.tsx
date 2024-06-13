@@ -1,11 +1,11 @@
 import { Product } from "@medusajs/medusa"
 import { Metadata } from "next"
 
+import { ProductCollectionWithPreviews } from "@/types/global"
 import { getCollectionsList, getProductsList, getRegion } from "@lib/data"
 import FeaturedProducts from "@modules/home/components/featured-products"
 import Hero from "@modules/home/components/hero"
 import { cache } from "react"
-import { ProductCollectionWithPreviews } from "types/global"
 
 export const metadata: Metadata = {
   title: "Medusa Next.js Starter Template",
