@@ -204,7 +204,17 @@ const config = {
 				"slide-in": "slide-in 1.2s cubic-bezier(.41,.73,.51,1.02)",
 				leave: "leave 150ms ease-in forwards",
 			},
-
+			spacing: {
+				xs: "0.25rem",
+				sm: "0.5rem",
+				md: "1rem",
+				lg: "4rem",
+				xl: "8rem",
+				"img-sm": "10rem",
+				img: "20rem",
+				"img-md": "20rem",
+				"img-lg": "30rem",
+			},
 			transitionProperty: {
 				width: "width margin",
 				height: "height",

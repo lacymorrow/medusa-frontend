@@ -2,10 +2,10 @@
 
 import { Button, Heading } from "@medusajs/ui"
 
+import { CartWithCheckoutStep } from "@/types/global"
+import DiscountCode from "@modules/checkout/components/discount-code"
 import CartTotals from "@modules/common/components/cart-totals"
 import Divider from "@modules/common/components/divider"
-import { CartWithCheckoutStep } from "types/global"
-import DiscountCode from "@modules/checkout/components/discount-code"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 
 type SummaryProps = {
@@ -21,7 +21,10 @@ const Summary = ({ cart }: SummaryProps) => {
       <DiscountCode cart={cart} />
       <Divider />
       <CartTotals data={cart} />
-      <LocalizedClientLink href={"/checkout?step=" + cart.checkout_step} data-testid="checkout-button">
+      <LocalizedClientLink
+        href={"/checkout?step=" + cart.checkout_step}
+        data-testid="checkout-button"
+      >
         <Button className="w-full h-10">Go to checkout</Button>
       </LocalizedClientLink>
     </div>

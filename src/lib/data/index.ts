@@ -13,10 +13,10 @@ import {
 import { PricedProduct } from "@medusajs/medusa/dist/types/pricing"
 import { cache } from "react"
 
+import { ProductCategoryWithChildren, ProductPreviewType } from "@/types/global"
 import sortProducts from "@lib/util/sort-products"
 import transformProductPreview from "@lib/util/transform-product-preview"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
-import { ProductCategoryWithChildren, ProductPreviewType } from "types/global"
 
 import { medusaClient } from "@lib/config"
 import medusaError from "@lib/util/medusa-error"
@@ -33,7 +33,7 @@ const emptyResponse = {
  * @param tags
  * @returns custom headers for Medusa API requests
  */
-const getMedusaHeaders = (tags: string[] = []) => {
+export const getMedusaHeaders = (tags: string[] = []) => {
 	const headers = {
 		next: {
 			tags,
@@ -49,93 +49,6 @@ const getMedusaHeaders = (tags: string[] = []) => {
 	}
 
 	return headers
-}
-
-
-// Vendor actions
-export async function getVendors() {
-	const headers = getMedusaHeaders(["customer", "vendor"])
-
-	console.log(headers)
-
-	const result = await fetch(`http://localhost:9000/store/vendors`, {
-		credentials: "include",
-		headers,
-		next: { tags: ["vendor"] }
-	})
-		.then((response) => {
-			return response
-		})
-		.then((response) => response.json())
-		.catch((err) => medusaError(err))
-
-	console.log("getVendors", result)
-
-	return result
-}
-
-export async function getCustomerVendor() {
-	const headers = getMedusaHeaders(["customer", "vendor"])
-
-	const result = await fetch(`http://localhost:9000/store/vendors/me`, {
-		credentials: "include",
-		headers,
-		next: { tags: ["vendor"] }
-	})
-		.then((response) => response.json())
-
-	return result
-}
-
-export async function registerAsVendor() {
-	const headers = getMedusaHeaders(["customer", "vendor"])
-
-	const result = await fetch(`http://localhost:9000/store/vendors/me`, {
-		credentials: "include",
-		method: "POST",
-		headers,
-		next: { tags: ["vendor"] }
-	})
-		.then((response) => {
-			return response
-		})
-		.then((response) => response.json())
-		.catch((err) => medusaError(err))
-
-	console.log("registerAsVendor", result)
-
-	return result
-}
-
-export async function unregisterAsVendor() {
-	const headers = getMedusaHeaders(["customer", "vendor"])
-
-	return await fetch(`http://localhost:9000/store/vendors/me`, {
-		credentials: "include",
-		method: "DELETE",
-		headers,
-		next: { tags: ["vendor"] }
-	})
-		.then((response) => response.json())
-		.catch((err) => medusaError(err))
-
-}
-
-// Todo: type
-export async function updateVendor(data: { name?: string, description?: string }) {
-	const headers = getMedusaHeaders(["customer", "vendor"])
-
-	const result = await fetch(`http://localhost:9000/store/vendors/me`, {
-		credentials: "include",
-		method: "PUT",
-		headers,
-		next: { tags: ["vendor"] },
-		body: JSON.stringify(data),
-	})
-		.then((response) => response.json())
-		.catch((err) => medusaError(err))
-
-	return result
 }
 
 // Cart actions

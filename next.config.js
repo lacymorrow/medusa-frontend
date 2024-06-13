@@ -7,6 +7,16 @@ const store = require("./store.config.json")
 const nextConfig = withStoreConfig({
   features: store.features,
   reactStrictMode: true,
+  eslint: {
+    // ignoreDuringBuilds: false,
+  },
+	typescript: {
+    // !! WARN !!
+    // Dangerously allow production builds to successfully complete even if
+    // your project has type errors.
+    // !! WARN !!
+    // ignoreBuildErrors: true,
+  },
   images: {
     remotePatterns: [
       {

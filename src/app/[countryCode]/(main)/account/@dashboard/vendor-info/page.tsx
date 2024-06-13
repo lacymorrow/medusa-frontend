@@ -1,10 +1,7 @@
-import {
-  getCustomer,
-  getCustomerVendor,
-  getProductsList,
-  getRegion,
-} from "@lib/data"
+import { getCustomer, getProductsList, getRegion } from "@lib/data"
+import { getCustomerVendor, getVendorProducts } from "@lib/data/vendor"
 import VendorDescription from "@modules/vendor/components/vendor-description"
+import VendorInventorySelect from "@modules/vendor/components/vendor-inventory-select"
 import VendorName from "@modules/vendor/components/vendor-name"
 import { notFound } from "next/navigation"
 
@@ -16,6 +13,7 @@ export default async function Sell({ countryCode }: { countryCode: string }) {
   })
   const customer = await getCustomer()
   const vendor = await getCustomerVendor()
+  const vendorProducts = await getVendorProducts()
 
   if (!customer || !vendor) {
     notFound()
@@ -23,7 +21,7 @@ export default async function Sell({ countryCode }: { countryCode: string }) {
 
   return (
     <div className="w-full" data-testid="profile-page-wrapper">
-      <div className="mb-8 flex flex-col gap-y-4">
+      <div className="mb-sm flex flex-col gap-y-4">
         <h1 className="text-2xl-semi">Sell</h1>
         <p className="text-base-regular">Sell your products on our platform.</p>
       </div>
@@ -33,7 +31,10 @@ export default async function Sell({ countryCode }: { countryCode: string }) {
         <Divider />
         <VendorDescription vendor={vendor} />
         <Divider />
-        {JSON.stringify(products)}
+        <VendorInventorySelect
+          products={products.response.products}
+          inventory={vendorProducts}
+        />
       </div>
     </div>
   )

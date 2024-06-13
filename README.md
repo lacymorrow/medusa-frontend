@@ -1,3 +1,21 @@
+# Florish Web Frontend
+
+## File Structure
+
+React components are stored in the `src/modules` directory. Subdirectories `components` for reusable components and `templates` for page specific, dumb components.
+
+## Design
+
+### Shadcn/ui
+
+Add components to the Shadcn/ui library:
+
+`npx shadcn-ui@latest add button`
+
+All components can be installed or updated with:
+
+`npx shadcn-ui@latest add button card input label select`
+
 <p align="center">
   <a href="https://www.medusajs.com">
   <picture>

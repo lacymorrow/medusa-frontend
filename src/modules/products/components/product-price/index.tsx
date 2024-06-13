@@ -4,8 +4,8 @@ import {
 } from "@medusajs/medusa/dist/types/pricing"
 import { clx } from "@medusajs/ui"
 
+import { RegionInfo } from "@/types/global"
 import { getProductPrice } from "@lib/util/get-product-price"
-import { RegionInfo } from "types/global"
 
 export default function ProductPrice({
   product,

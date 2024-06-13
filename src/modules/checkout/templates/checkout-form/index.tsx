@@ -1,3 +1,4 @@
+import { CartWithCheckoutStep } from "@/types/global"
 import {
   createPaymentSessions,
   getCustomer,
@@ -9,7 +10,6 @@ import Payment from "@modules/checkout/components/payment"
 import Review from "@modules/checkout/components/review"
 import Shipping from "@modules/checkout/components/shipping"
 import { cookies } from "next/headers"
-import { CartWithCheckoutStep } from "types/global"
 
 export default async function CheckoutForm() {
   const cartId = cookies().get("_medusa_cart_id")?.value

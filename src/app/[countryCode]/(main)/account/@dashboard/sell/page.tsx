@@ -1,9 +1,5 @@
-import {
-  getCustomer,
-  getCustomerVendor,
-  getProductsList,
-  getRegion,
-} from "@lib/data"
+import { getCustomer, getProductsList, getRegion } from "@lib/data"
+import { getCustomerVendor } from "@lib/data/vendor"
 import VendorRegister from "@modules/vendor/components/vendor-register"
 import VendorUnregister from "@modules/vendor/components/vendor-unregister"
 import { notFound } from "next/navigation"

@@ -1,11 +1,12 @@
-// Todo: rewrite
+// Todo: rewrite with best practices
 "use server"
 
 import {
+	addVendorProduct,
 	registerAsVendor,
 	unregisterAsVendor,
 	updateVendor
-} from "@lib/data"
+} from "@lib/data/vendor"
 import { revalidateTag } from "next/cache"
 
 
@@ -72,6 +73,22 @@ export async function updateVendorDescription(_currentState: unknown, formData: 
 		return { success: true, error: null }
 	} catch (error: any) {
 		return { success: false, error: error.toString() }
+	}
+}
+
+export async function addVendorProductAction(_currentState: unknown, formData: FormData) {
+	const product = {
+		productId: formData.get("productId") as string,
+	}
+	try {
+		await addVendorProduct(product).then(() => {
+			revalidateTag("vendor-products")
+		})
+
+
+	} catch (error: any) {
+		console.log(error)
+		return error.toString()
 	}
 }
 

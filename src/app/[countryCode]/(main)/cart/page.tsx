@@ -4,10 +4,10 @@ import { cookies } from "next/headers"
 
 import CartTemplate from "@modules/cart/templates"
 
-import { enrichLineItems } from "@modules/cart/actions"
-import { getCheckoutStep } from "@lib/util/get-checkout-step"
-import { CartWithCheckoutStep } from "types/global"
+import { CartWithCheckoutStep } from "@/types/global"
 import { getCart, getCustomer } from "@lib/data"
+import { getCheckoutStep } from "@lib/util/get-checkout-step"
+import { enrichLineItems } from "@modules/cart/actions"
 
 export const metadata: Metadata = {
   title: "Cart",
