@@ -1,15 +1,13 @@
-import { getCustomer, getProductsList, getRegion } from "@lib/data"
+import { getCustomer } from "@lib/data"
 import { getCustomerVendor } from "@lib/data/vendor"
 import VendorRegister from "@modules/vendor/components/vendor-register"
 import VendorUnregister from "@modules/vendor/components/vendor-unregister"
 import { notFound } from "next/navigation"
+interface PageProps {
+  countryCode: string
+}
 
-export default async function Sell({ countryCode }: { countryCode: string }) {
-  const region = await getRegion(countryCode)
-
-  const products = await getProductsList({
-    countryCode,
-  })
+export default async function Page() {
   const customer = await getCustomer()
   const vendor = await getCustomerVendor()
 

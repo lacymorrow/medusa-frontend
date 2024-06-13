@@ -4,12 +4,14 @@ import VendorDescription from "@modules/vendor/components/vendor-description"
 import VendorInventorySelect from "@modules/vendor/components/vendor-inventory-select"
 import VendorName from "@modules/vendor/components/vendor-name"
 import { notFound } from "next/navigation"
-
-export default async function Sell({ countryCode }: { countryCode: string }) {
-  const region = await getRegion(countryCode)
+interface PageProps {
+  params: { countryCode: string }
+}
+export default async function Page({ params }: PageProps) {
+  const region = await getRegion(params.countryCode)
 
   const products = await getProductsList({
-    countryCode,
+    countryCode: params.countryCode,
   })
   const customer = await getCustomer()
   const vendor = await getCustomerVendor()
