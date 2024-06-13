@@ -14,8 +14,10 @@ const nextConfig = withStoreConfig({
     // !! WARN !!
     // Dangerously allow production builds to successfully complete even if
     // your project has type errors.
-    // !! WARN !!
+
     // ignoreBuildErrors: true,
+
+    // !! WARN !!
   },
   images: {
     remotePatterns: [
@@ -23,6 +25,18 @@ const nextConfig = withStoreConfig({
         protocol: "http",
         hostname: "localhost",
       },
+
+			// DigitalOcean Spaces storage
+			{
+				protocol: "https",
+				hostname: "fl-web.nyc3.digitaloceanspaces.com",
+			},
+      {
+        protocol: "https",
+        hostname: "fl-web.nyc3.cdn.digitaloceanspaces.com",
+			},
+
+			// TODO: Remove this
       {
         protocol: "https",
         hostname: "medusa-public-images.s3.eu-west-1.amazonaws.com",
