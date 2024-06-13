@@ -1,5 +1,6 @@
 import ContentGrid from "@/components/sections/content-grid/content-grid"
 import FeatureList from "@/components/sections/feature-list/feature-list"
+import { VendorDetails } from "@/modules/vendor/components/vendor-details/vendor-details"
 import { ApplyBanner } from "@modules/vendor/templates/apply-banner"
 import { ApplyForm } from "@modules/vendor/templates/apply-form"
 import SellHero from "@modules/vendor/templates/apply-hero"
@@ -23,6 +24,7 @@ export default async function SellPage() {
 
   return (
     <div>
+      <VendorDetails />
       <SellHero />
       <ContentGrid
         title={contentGridData.title}
