@@ -1,9 +1,8 @@
 import ContentGrid from "@/components/sections/content-grid/content-grid"
 import FeatureList from "@/components/sections/feature-list/feature-list"
-import { VendorDetails } from "@/modules/vendor/components/vendor-details/vendor-details"
-import { ApplyBanner } from "@modules/vendor/templates/apply-banner"
-import { ApplyForm } from "@modules/vendor/templates/apply-form"
-import SellHero from "@modules/vendor/templates/apply-hero"
+import { ApplyBanner } from "@/components/vendor/sections/apply-banner"
+import { ApplyForm } from "@/components/vendor/sections/apply-form"
+import SellHero from "@/components/vendor/sections/apply-hero"
 
 const sampleItem = {
   imageUrl:
@@ -15,7 +14,7 @@ const sampleItem = {
 
 const items = [sampleItem, sampleItem, sampleItem, sampleItem]
 
-export default async function SellPage() {
+export default async function NurseryLandingPage() {
   const contentGridData = {
     title: "Explore Our Top Products",
     description: "Check out our wide range of products tailored to your needs.",
@@ -24,7 +23,6 @@ export default async function SellPage() {
 
   return (
     <div>
-      <VendorDetails />
       <SellHero />
       <ContentGrid
         title={contentGridData.title}

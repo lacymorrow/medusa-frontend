@@ -5,7 +5,7 @@
  */
 
 import { Section } from "@/components/blocks/section/section"
-import { VendorSignupForm } from "@modules/vendor/components/vendor-signup-form"
+import { VendorSignupForm } from "@/components/vendor/admin/vendor-signup-form"
 
 export function ApplyForm() {
   return (

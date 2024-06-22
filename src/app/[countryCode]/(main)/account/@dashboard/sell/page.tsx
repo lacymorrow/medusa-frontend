@@ -1,7 +1,7 @@
+import VendorRegister from "@/components/vendor/admin/vendor-register"
+import VendorUnregister from "@/components/vendor/admin/vendor-unregister"
 import { getCustomer } from "@lib/data"
 import { getCustomerVendor } from "@lib/data/vendor"
-import VendorRegister from "@modules/vendor/components/vendor-register"
-import VendorUnregister from "@modules/vendor/components/vendor-unregister"
 import { notFound } from "next/navigation"
 interface PageProps {
   countryCode: string

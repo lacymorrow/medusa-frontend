@@ -1,8 +1,8 @@
 "use client"
 
+import { unregisterVendorAction } from "@/components/vendor/actions"
 import ErrorMessage from "@modules/checkout/components/error-message"
 import { SubmitButton } from "@modules/checkout/components/submit-button"
-import { unregisterVendorAction } from "@modules/vendor/actions"
 import React from "react"
 import { useFormState } from "react-dom"
 
