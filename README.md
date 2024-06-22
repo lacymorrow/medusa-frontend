@@ -14,7 +14,7 @@ Add components to the Shadcn/ui library:
 
 All components can be installed or updated with:
 
-`npx shadcn-ui@latest add button card input label select`
+`npx shadcn-ui@latest add accordion button card input label select separator`
 
 <p align="center">
   <a href="https://www.medusajs.com">

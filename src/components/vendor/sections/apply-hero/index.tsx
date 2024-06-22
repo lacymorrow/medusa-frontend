@@ -5,7 +5,7 @@ import { ArrowRightIcon } from "@radix-ui/react-icons"
 const SellHero = () => {
   return (
     <Section>
-      <div className="px-xs py-sm sm:px-md sm:py-lg lg:px-xl lg:py-2xl">
+      <div className="p-md lg:p-">
         <div className="grid grid-cols-1 gap-sm lg:grid-cols-2 lg:gap-lg">
           <div className="relative h-img-md overflow-hidden rounded-sm sm:h-img-md lg:order-last lg:h-full">
             <img

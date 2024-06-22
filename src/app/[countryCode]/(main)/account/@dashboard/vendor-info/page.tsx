@@ -1,8 +1,8 @@
+import VendorDescription from "@/components/vendor/admin/vendor-description"
+import VendorInventorySelect from "@/components/vendor/admin/vendor-inventory-select"
+import VendorName from "@/components/vendor/admin/vendor-name"
 import { getCustomer, getProductsList, getRegion } from "@lib/data"
 import { getCustomerVendor, getVendorProducts } from "@lib/data/vendor"
-import VendorDescription from "@modules/vendor/components/vendor-description"
-import VendorInventorySelect from "@modules/vendor/components/vendor-inventory-select"
-import VendorName from "@modules/vendor/components/vendor-name"
 import { notFound } from "next/navigation"
 interface PageProps {
   params: { countryCode: string }

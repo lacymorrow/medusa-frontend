@@ -5,17 +5,17 @@ import { useFormState } from "react-dom"
 
 import Input from "@modules/common/components/input"
 
+import { updateVendorName } from "@/components/vendor/actions"
 import AccountInfo from "@modules/account/components/account-info"
-import { updateVendorDescription } from "@modules/vendor/actions"
 
 type MyInformationProps = {
   vendor: any // TODO: Vendor
 }
 
-const VendorDescription: React.FC<MyInformationProps> = ({ vendor }) => {
+const VendorName: React.FC<MyInformationProps> = ({ vendor }) => {
   const [successState, setSuccessState] = React.useState(false)
 
-  const [state, formAction] = useFormState(updateVendorDescription, {
+  const [state, formAction] = useFormState(updateVendorName, {
     error: false,
     success: false,
   })
@@ -31,20 +31,20 @@ const VendorDescription: React.FC<MyInformationProps> = ({ vendor }) => {
   return (
     <form action={formAction} className="w-full overflow-visible">
       <AccountInfo
-        label="Description"
-        currentInfo={`${vendor.description}`}
+        label="Name"
+        currentInfo={`${vendor.name}`}
         isSuccess={successState}
         isError={!!state?.error}
         clearState={clearState}
-        data-testid="vendor-description-editor"
+        data-testid="vendor-name-editor"
       >
         <div className="grid grid-cols-2 gap-x-4">
           <Input
-            label="Description"
-            name="description"
+            label="Name"
+            name="name"
             required
-            defaultValue={vendor.description}
-            data-testid="vendor-description-input"
+            defaultValue={vendor.name}
+            data-testid="vendor-name-input"
           />
         </div>
       </AccountInfo>
@@ -52,4 +52,4 @@ const VendorDescription: React.FC<MyInformationProps> = ({ vendor }) => {
   )
 }
 
-export default VendorDescription
+export default VendorName

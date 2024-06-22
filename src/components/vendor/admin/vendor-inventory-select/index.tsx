@@ -1,8 +1,8 @@
 "use client"
 
+import { addVendorProductAction } from "@/components/vendor/actions"
 import { ProductPreviewType } from "@/types/global"
 import ErrorMessage from "@modules/checkout/components/error-message"
-import { addVendorProductAction } from "@modules/vendor/actions"
 import { useFormState } from "react-dom"
 
 const VendorInventorySelect = ({
