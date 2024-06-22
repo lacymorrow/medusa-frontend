@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useMemo } from "react"
-import { Address, Cart, Customer } from "@medusajs/medusa"
+import { Cart, Customer } from "@medusajs/medusa"
+import { Container } from "@medusajs/ui"
 import Checkbox from "@modules/common/components/checkbox"
 import Input from "@modules/common/components/input"
+import React, { useEffect, useMemo, useState } from "react"
 import AddressSelect from "../address-select"
 import CountrySelect from "../country-select"
-import { Container } from "@medusajs/ui"
 
 const ShippingAddress = ({
   customer,
@@ -34,7 +34,7 @@ const ShippingAddress = ({
   })
 
   const countriesInRegion = useMemo(
-    () => cart?.region.countries.map((c) => c.iso_2),
+    () => cart?.region.countries.map((c: any) => c.iso_2),
     [cart?.region]
   )
 

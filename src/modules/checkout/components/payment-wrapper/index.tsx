@@ -1,11 +1,10 @@
 "use client"
 
 import { Cart, PaymentSession } from "@medusajs/medusa"
-import { loadStripe } from "@stripe/stripe-js"
-import React from "react"
-import StripeWrapper from "./stripe-wrapper"
 import { PayPalScriptProvider } from "@paypal/react-paypal-js"
-import { createContext } from "react"
+import { loadStripe } from "@stripe/stripe-js"
+import React, { createContext } from "react"
+import StripeWrapper from "./stripe-wrapper"
 
 type WrapperProps = {
   cart: Omit<Cart, "refundable_amount" | "refunded_total">
@@ -47,6 +46,7 @@ const Wrapper: React.FC<WrapperProps> = ({ cart, children }) => {
       <PayPalScriptProvider
         options={{
           "client-id": process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || "test",
+          clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || "test",
           currency: cart?.region.currency_code.toUpperCase(),
           intent: "authorize",
           components: "buttons",

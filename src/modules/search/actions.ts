@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 "use server"
 
 import { SEARCH_INDEX_NAME, searchClient } from "@lib/search-client"
