@@ -24,6 +24,10 @@ async function getRegionMap() {
         tags: ["regions"],
       },
     }).then((res) => res.json())
+    // .catch((error) => {
+    //   console.error(error)
+    //   return { regions: [{ id: 'fake-region', countries: [{ iso_2: 'us' }] }] }
+    // })
 
     if (!regions) {
       notFound()

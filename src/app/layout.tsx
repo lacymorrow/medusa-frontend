@@ -1,3 +1,4 @@
+import { TooltipProvider } from "@/components/ui/tooltip"
 import { cn } from "@/lib/utils"
 import "@/styles/globals.css"
 import { Metadata } from "next"
@@ -23,7 +24,9 @@ export default function RootLayout(props: { children: React.ReactNode }) {
           fontSans.variable
         )}
       >
-        <main className="relative">{props.children}</main>
+        <TooltipProvider>
+          <main className="relative">{props.children}</main>
+        </TooltipProvider>
       </body>
     </html>
   )

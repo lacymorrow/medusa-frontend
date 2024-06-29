@@ -110,6 +110,11 @@ export default async function Footer() {
                   </LocalizedClientLink>
                 </li>
                 <li>
+                  <LocalizedClientLink href="/login">
+                    Login
+                  </LocalizedClientLink>
+                </li>
+                <li>
                   <LocalizedClientLink href="/nursery-landing">
                     Nursery landing
                   </LocalizedClientLink>
